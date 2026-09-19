@@ -1,5 +1,7 @@
 let BaseUrl = "https://latest.currency-api.pages.dev/v1/currencies";
 
+let message = document.querySelector(".msg");
+
 let dropdowns=document.querySelectorAll(".dropdown select");
 let FromCurr = document.querySelector(".from select");
 
@@ -15,7 +17,7 @@ for(let select of dropdowns){
         if(select.name=="from" && currCode=="USD"){
             newOption.selected="selected";
         }
-        else if(select.name=="To" &&     currCode=="INR"){
+        else if(select.name=="To" &&     currCode=="PKR"){
             newOption.selected="selected";
         }
         select.append(newOption);
@@ -34,11 +36,19 @@ const updateFlag=(element)=>{
       image.src=newSrc;
 }
 
+window.addEventListener("load",()=>{
+    UpdateExchangeRates();
+    
+})
 
 button.addEventListener("click",async(evt)=>{
     evt.preventDefault();
+    UpdateExchangeRates();
+})
 
-    let amount = document.querySelector(".amount input");
+
+const UpdateExchangeRates=async()=>{
+     let amount = document.querySelector(".amount input");
     let Amvalue=amount.value;
     if(Amvalue=="" || Amvalue<1){
         Amvalue=1;
@@ -49,10 +59,11 @@ button.addEventListener("click",async(evt)=>{
    let response = await fetch(URL);
    let data = await response.json();
    let rate= data[FromCurr.value.toLowerCase()][ToCurr.value.toLowerCase()];
-   console.log(rate);
-
-})
-
+   
+   let FinalAmount = Amvalue * rate;
+   
+   message.innerText=`${Amvalue}${FromCurr.value} = ${FinalAmount}${ToCurr.value}`
+}
 
  
 
