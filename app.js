@@ -47,7 +47,9 @@ button.addEventListener("click",async(evt)=>{
     
    let URL = `${BaseUrl}/${FromCurr.value.toLowerCase()}.json`;
    let response = await fetch(URL);
-   console.log(response)
+   let data = await response.json();
+   let rate= data[FromCurr.value.toLowerCase()][ToCurr.value.toLowerCase()];
+   console.log(rate);
 
 })
 
