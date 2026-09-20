@@ -38,7 +38,6 @@ const updateFlag=(element)=>{
 
 window.addEventListener("load",()=>{
     UpdateExchangeRates();
-    
 })
 
 button.addEventListener("click",async(evt)=>{
